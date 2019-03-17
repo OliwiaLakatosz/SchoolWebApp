@@ -92,8 +92,12 @@ public class DatabaseConnector {
 		transaction.commit();
 	}
 
+//    SELECT students.*, schoolClasses.profile FROM students
+//    INNER JOIN schoolClasses on students.class_id=schoolClasses.id
+
+
     public Iterable<Student> getStudents() {
-        String hql = "FROM Student";
+        String hql = "FROM Student, SchoolClass.profile";
         Query query = session.createQuery(hql);
         List students = query.list();
 
