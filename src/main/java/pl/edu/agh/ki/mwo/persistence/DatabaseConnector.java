@@ -91,4 +91,24 @@ public class DatabaseConnector {
 		}
 		transaction.commit();
 	}
+
+    public Iterable<Student> getStudents() {
+        String hql = "FROM Student";
+        Query query = session.createQuery(hql);
+        List students = query.list();
+
+        return students;
+	}
+
+    public void deleteStudent(String studentId) {
+	    String hql = "FROM Student S WHERE S.id=" + studentId;
+	    Query query = session.createQuery(hql);
+	    List<Student> results = query.list();
+
+	    Transaction transaction = session.beginTransaction();
+        for (Student s : results) {
+            session.delete(s);
+        }
+        transaction.commit();
+    }
 }
