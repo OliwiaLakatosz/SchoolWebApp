@@ -41,6 +41,8 @@ public class StudentController {
         if (session.getAttribute("userLogin") == null)
             return "redirect:/Login";
 
+        model.addAttribute("schoolClasses", DatabaseConnector.getInstance().getSchoolClasses());
+
         return "studentForm";
     }
 

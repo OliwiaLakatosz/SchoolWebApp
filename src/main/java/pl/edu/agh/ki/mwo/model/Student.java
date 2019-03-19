@@ -18,6 +18,9 @@ public class Student implements java.io.Serializable {
 	
 	@Column
 	private String pesel;
+
+	@ManyToOne
+	private SchoolClass schoolClass;
 	
 	public long getId() {
 		return id;

@@ -70,6 +70,7 @@ public class DatabaseConnector {
 		String hql = "FROM School S WHERE S.id=" + schoolId;
 		Query query = session.createQuery(hql);
 		List<School> results = query.list();
+
 		Transaction transaction = session.beginTransaction();
 		if (results.size() == 0) {
 			session.save(schoolClass);
@@ -97,7 +98,7 @@ public class DatabaseConnector {
 
 
     public Iterable<Student> getStudents() {
-        String hql = "FROM Student, SchoolClass.profile";
+        String hql = "FROM Student";
         Query query = session.createQuery(hql);
         List students = query.list();
 
