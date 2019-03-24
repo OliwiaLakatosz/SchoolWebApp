@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,26 +64,29 @@ public class SchoolsController {
     	return "schoolsList";
     }
 
-    @RequestMapping(value = "/UpdateSchool", method = RequestMethod.POST)
-	public String editSchool(@RequestParam(value = "schoolId", required=false) String schoolId,
+    @RequestMapping(value = "/UpdateSchool/{schoolId}", method = RequestMethod.POST)
+	public String editSchool(@RequestParam(value = "schoolId", required=false) String schoolID,
 			                 @RequestParam(value = "newSchoolName", required = false) String name,
 							 @RequestParam(value = "newSchoolAddress", required = false) String address,
 							 Model model, HttpSession session) {
 		if (session.getAttribute("userLogin") == null)
 			return "redirect:/Login";
 
-		DatabaseConnector.getInstance().editSchool(Long.parseLong(schoolId), name, address);
+		DatabaseConnector.getInstance().editSchool(Long.parseLong(schoolID), name, address);
 		model.addAttribute("schools", DatabaseConnector.getInstance().getSchools());
 		model.addAttribute("message", "Szkoła została zmieniona");
 
 		return "schoolsList";
 	}
 
-	@RequestMapping(value = "/EditSchool")
-	public String displayEditSchoolForm(Model model, HttpSession session) {
+	@RequestMapping(value = "/EditSchool/{schoolId}", method = RequestMethod.POST)
+	public String displayEditSchoolForm(Model model,
+//										@PathVariable("schoolId") String schoolId,
+										@RequestParam(value = "schoolId", required = false) String schoolId,
+										HttpSession session) {
 		if (session.getAttribute("userLogin") == null)
 			return "redirect:/Login";
 
-		return "schoolEdit";
+		return "redirect:/UpdateSchool/{schoolId}";
     }
 }

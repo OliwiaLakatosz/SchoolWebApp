@@ -133,6 +133,11 @@ public class DatabaseConnector {
         transaction.commit();
     }
 
+    public School getSchoolById(Long schoolId) {
+		Transaction transaction = session.beginTransaction();
+		return (School) session.get(School.class, schoolId);
+	}
+
     public void editSchool(Long schoolId, String newName, String newAddress) {
 		Transaction transaction = session.beginTransaction();
 		School school = (School) session.get(School.class, schoolId);
