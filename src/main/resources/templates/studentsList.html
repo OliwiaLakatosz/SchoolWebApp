@@ -17,8 +17,8 @@
             <td><span th:text="${student.name}" /></td>
             <td><span th:text="${student.surname}" /></td>
             <td><span th:text="${student.pesel}" /></td>
-            <td><span th:text="${student.profile}" /></td>
-            <!--<td><span th:text="${student.school}" /></td>-->
+            <td><span th:text="${Placeholder}" /></td>
+            <td><span th:text="${Placeholder}" /></td>
             <td>
                 <form action="DeleteStudent" method="POST">
                     <input type="hidden" name="studentId" th:value="${student.id}" />

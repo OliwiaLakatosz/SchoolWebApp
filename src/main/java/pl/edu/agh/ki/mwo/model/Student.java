@@ -20,6 +20,7 @@ public class Student implements java.io.Serializable {
 	private String pesel;
 
 	@ManyToOne
+    @JoinColumn(name = "class_id")
 	private SchoolClass schoolClass;
 	
 	public long getId() {
