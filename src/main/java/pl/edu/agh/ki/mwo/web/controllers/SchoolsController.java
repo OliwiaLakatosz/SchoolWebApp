@@ -64,7 +64,7 @@ public class SchoolsController {
     }
 
     @RequestMapping(value = "/UpdateSchool", method = RequestMethod.POST)
-	public String editSchool(@RequestParam(value="schoolId", required=false) String schoolId,
+	public String editSchool(@RequestParam(value = "schoolId", required=false) String schoolId,
 			                 @RequestParam(value = "newSchoolName", required = false) String name,
 							 @RequestParam(value = "newSchoolAddress", required = false) String address,
 							 Model model, HttpSession session) {
@@ -75,7 +75,7 @@ public class SchoolsController {
 		model.addAttribute("schools", DatabaseConnector.getInstance().getSchools());
 		model.addAttribute("message", "Szkoła została zmieniona");
 
-		return "schoolEdit";
+		return "schoolsList";
 	}
 
 	@RequestMapping(value = "/EditSchool")
