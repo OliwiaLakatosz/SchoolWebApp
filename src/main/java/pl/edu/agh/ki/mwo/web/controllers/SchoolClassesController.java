@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import pl.edu.agh.ki.mwo.model.School;
 import pl.edu.agh.ki.mwo.model.SchoolClass;
 import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
+
 
 @Controller
 public class SchoolClassesController {
@@ -67,6 +67,35 @@ public class SchoolClassesController {
     	model.addAttribute("message", "Klasa została usunięta");
          	
     	return "schoolClassesList";
+    }
+
+    @RequestMapping(value = "/UpdateSchoolClass", method = RequestMethod.POST)
+    public String editSchoolClass(@RequestParam(value = "schoolClassId") String schoolClassId,
+                                  @RequestParam(value = "newSchoolClassStartYear", required = false) String startYear,
+                                  @RequestParam(value = "newSchoolClassCurrentYear", required = false) String currentYear,
+                                  @RequestParam(value = "newSchoolClassProfile", required = false) String profile,
+                                  @RequestParam(value = "newSchoolClassSchool", required = false) String schoolId,
+                                  Model model, HttpSession session) {
+        if (session.getAttribute("userLogin") == null)
+            return "redirect:/Login";
+
+        DatabaseConnector.getInstance().editSchoolClass(Long.parseLong(schoolClassId),
+                Integer.valueOf(startYear), Integer.valueOf(currentYear), profile, schoolId);
+        model.addAttribute("schoolClasses", DatabaseConnector.getInstance().getSchoolClasses());
+        model.addAttribute("message", "Klasa została zmieniona");
+
+        return "schoolClassesList";
+    }
+
+    @RequestMapping(value = "/EditSchoolClass", method = RequestMethod.POST)
+    public String displayEditSchoolClassForm(Model model, HttpSession session,
+                                             @RequestParam(value = "schoolClassId") String schoolClassId) {
+        if (session.getAttribute("userLogin") == null)
+            return "redirect:/Login";
+
+        model.addAttribute("schoolClassId", schoolClassId);
+
+        return "schoolClassEdit";
     }
 
 
