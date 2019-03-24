@@ -64,8 +64,8 @@ public class SchoolsController {
     	return "schoolsList";
     }
 
-    @RequestMapping(value = "/UpdateSchool/{schoolId}", method = RequestMethod.POST)
-	public String editSchool(@RequestParam(value = "schoolId", required=false) String schoolID,
+    @RequestMapping(value = "/UpdateSchool", method = RequestMethod.POST)
+	public String editSchool(@RequestParam(value = "schoolId") String schoolID,
 			                 @RequestParam(value = "newSchoolName", required = false) String name,
 							 @RequestParam(value = "newSchoolAddress", required = false) String address,
 							 Model model, HttpSession session) {
@@ -79,14 +79,15 @@ public class SchoolsController {
 		return "schoolsList";
 	}
 
-	@RequestMapping(value = "/EditSchool/{schoolId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/EditSchool", method = RequestMethod.POST)
 	public String displayEditSchoolForm(Model model,
-//										@PathVariable("schoolId") String schoolId,
-										@RequestParam(value = "schoolId", required = false) String schoolId,
+										@RequestParam(value = "schoolId") String schoolId,
 										HttpSession session) {
 		if (session.getAttribute("userLogin") == null)
 			return "redirect:/Login";
 
-		return "redirect:/UpdateSchool/{schoolId}";
+		model.addAttribute("schoolId", schoolId);
+
+		return "schoolEdit";
     }
 }
