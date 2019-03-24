@@ -71,7 +71,7 @@ public class SchoolsController {
 		if (session.getAttribute("userLogin") == null)
 			return "redirect:/Login";
 
-		DatabaseConnector.getInstance().editSchool(schoolId, name, address);
+		DatabaseConnector.getInstance().editSchool(Long.parseLong(schoolId), name, address);
 		model.addAttribute("schools", DatabaseConnector.getInstance().getSchools());
 		model.addAttribute("message", "Szkoła została zmieniona");
 
