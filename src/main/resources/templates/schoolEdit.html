@@ -6,12 +6,12 @@
 <div layout:fragment="content">
     <div th:include="menuFragment" ></div>
     <br/><br/>
-    <form action="EditSchool" method="POST">
+    <form action="UpdateSchool" method="POST">
         <table>
             <tr><td>nowa nazwa:</td><td><input type="text" name="schoolName" /></td></tr>
             <tr><td>nowy adres:</td><td><input type="text" name="schoolAddress" /></td></tr>
         </table><br/><BR/>
-        <input type="submit" value="Utwórz"/>
+        <input type="submit" value="Zapisz"/>
     </form>
 </div>
 

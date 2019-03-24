@@ -63,7 +63,7 @@ public class SchoolsController {
     	return "schoolsList";
     }
 
-    @RequestMapping(value = "/EditSchool", method = RequestMethod.POST)
+    @RequestMapping(value = "/UpdateSchool", method = RequestMethod.POST)
 	public String editSchool(@RequestParam(value="schoolId", required=false) String schoolId,
 			                 @RequestParam(value = "newSchoolName", required = false) String name,
 							 @RequestParam(value = "newSchoolAddress", required = false) String address,
@@ -78,5 +78,11 @@ public class SchoolsController {
 		return "schoolEdit";
 	}
 
+	@RequestMapping(value = "/EditSchool")
+	public String displayEditSchoolForm(Model model, HttpSession session) {
+		if (session.getAttribute("userLogin") == null)
+			return "redirect:/Login";
 
+		return "schoolEdit";
+    }
 }
