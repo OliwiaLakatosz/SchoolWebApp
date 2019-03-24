@@ -63,5 +63,20 @@ public class SchoolsController {
     	return "schoolsList";
     }
 
+    @RequestMapping(value = "/EditSchool", method = RequestMethod.POST)
+	public String editSchool(@RequestParam(value="schoolId", required=false) String schoolId,
+			                 @RequestParam(value = "newSchoolName", required = false) String name,
+							 @RequestParam(value = "newSchoolAddress", required = false) String address,
+							 Model model, HttpSession session) {
+		if (session.getAttribute("userLogin") == null)
+			return "redirect:/Login";
+
+		DatabaseConnector.getInstance().editSchool(schoolId, name, address);
+		model.addAttribute("schools", DatabaseConnector.getInstance().getSchools());
+		model.addAttribute("message", "Szkoła została zmieniona");
+
+		return "schoolEdit";
+	}
+
 
 }

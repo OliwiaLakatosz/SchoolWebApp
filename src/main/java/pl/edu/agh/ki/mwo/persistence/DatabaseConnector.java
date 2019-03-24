@@ -40,7 +40,7 @@ public class DatabaseConnector {
 		
 		return schools;
 	}
-	
+
 	public void addSchool(School school) {
 		Transaction transaction = session.beginTransaction();
 		session.save(school);
@@ -132,4 +132,13 @@ public class DatabaseConnector {
         }
         transaction.commit();
     }
+
+    public void editSchool(String schoolId, String newName, String newAddress) {
+		Transaction transaction = session.beginTransaction();
+		School school = (School) session.get(School.class, schoolId);
+
+		school.setName(newName);
+		school.setAddress(newAddress);
+		transaction.commit();
+	}
 }
