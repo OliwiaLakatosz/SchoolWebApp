@@ -1,10 +1,8 @@
 package pl.edu.agh.ki.mwo.model;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @SuppressWarnings("serial")
 @Entity
@@ -16,15 +14,12 @@ public class SchoolClass implements java.io.Serializable {
 	private long id;
 	
 	@Column
-	@NotNull
 	private int startYear;
 	
 	@Column
-	@NotNull
 	private int currentYear;
 	
 	@Column
-	@NotEmpty
 	private String profile;
 
 	@OneToMany(cascade=CascadeType.ALL)

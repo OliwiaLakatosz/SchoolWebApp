@@ -95,6 +95,7 @@ public class SchoolClassesController {
 
         model.addAttribute("schools", DatabaseConnector.getInstance().getSchools());
         model.addAttribute("schoolClassId", schoolClassId);
+        model.addAttribute("schoolClass", DatabaseConnector.getInstance().getSchoolClassById(schoolClassId));
 
         return "schoolClassEdit";
     }
