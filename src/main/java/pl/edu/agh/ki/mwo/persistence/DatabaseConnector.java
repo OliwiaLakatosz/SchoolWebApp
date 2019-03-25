@@ -189,4 +189,19 @@ public class DatabaseConnector {
         }
         transaction.commit();
     }
+
+    public Student getStudentById(String studentId) {
+        Student student = (Student) session.get(Student.class, Long.parseLong(studentId));
+        return student;
+    }
+
+    public School getSchoolById(String schoolId) {
+	    School school = (School) session.get(School.class, Long.parseLong(schoolId));
+	    return school;
+    }
+
+    public SchoolClass getSchoolClassById(String schoolClassId) {
+	    SchoolClass schoolClass = (SchoolClass) session.get(SchoolClass.class, Long.parseLong(schoolClassId));
+	    return schoolClass;
+    }
 }

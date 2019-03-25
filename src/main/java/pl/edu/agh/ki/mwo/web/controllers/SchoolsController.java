@@ -87,6 +87,7 @@ public class SchoolsController {
 			return "redirect:/Login";
 
 		model.addAttribute("schoolId", schoolId);
+		model.addAttribute("school", DatabaseConnector.getInstance().getSchoolById(schoolId));
 
 		return "schoolEdit";
     }

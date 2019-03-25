@@ -9,7 +9,7 @@ import pl.edu.agh.ki.mwo.model.Student;
 import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 
 import javax.servlet.http.HttpSession;
-import javax.xml.crypto.Data;
+
 
 @Controller
 public class StudentController {
@@ -95,6 +95,7 @@ public class StudentController {
 
         model.addAttribute("schoolClasses", DatabaseConnector.getInstance().getSchoolClasses());
         model.addAttribute("studentId", studentId);
+        model.addAttribute("student", DatabaseConnector.getInstance().getStudentById(studentId));
 
         return "studentEdit";
     }
