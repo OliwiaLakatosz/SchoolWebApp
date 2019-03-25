@@ -144,9 +144,9 @@ public class DatabaseConnector {
 
 	public void editSchoolClass(Long schoolClassId, int newStartYear, int newCurrentYear,
                                 String newProfile, String schoolId) {
-//        String hql = "FROM School S WHERE S.id=" + schoolId;
-//        Query query = session.createQuery(hql);
-//        List<School> results = query.list();
+        String hql = "FROM School S WHERE S.id=" + schoolId;
+        Query query = session.createQuery(hql);
+        List<School> schools = query.list();
 
 		Transaction transaction = session.beginTransaction();
 
@@ -156,6 +156,13 @@ public class DatabaseConnector {
 		schoolClass.setCurrentYear(newCurrentYear);
 		schoolClass.setProfile(newProfile);
 
+		if (schools.size() == 0) {
+			session.save(schoolClass);
+		} else {
+			School school = schools.get(0);
+			school.addClass(schoolClass);
+			session.save(school);
+		}
 		transaction.commit();
 	}
 }
