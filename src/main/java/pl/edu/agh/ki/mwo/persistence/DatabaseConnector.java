@@ -165,4 +165,28 @@ public class DatabaseConnector {
 		}
 		transaction.commit();
 	}
+
+    public void editStudent(long studentId, String newName, String newSurname,
+                            String newPesel, String schoolClassId) {
+	    String hql = "FROM SchoolClass SC WHERE SC.id=" + schoolClassId;
+	    Query query = session.createQuery(hql);
+	    List<SchoolClass> schoolClasses = query.list();
+
+	    Transaction transaction = session.beginTransaction();
+
+	    Student student = (Student) session.get(Student.class, studentId);
+
+	    student.setName(newName);
+	    student.setSurname(newSurname);
+	    student.setPesel(newPesel);
+
+        if (schoolClasses.size() == 0) {
+            session.save(student);
+        } else {
+            SchoolClass schoolClass = schoolClasses.get(0);
+            schoolClass.addStudent(student);
+            session.save(student);
+        }
+        transaction.commit();
+    }
 }
