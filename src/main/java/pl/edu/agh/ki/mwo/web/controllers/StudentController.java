@@ -9,6 +9,7 @@ import pl.edu.agh.ki.mwo.model.Student;
 import pl.edu.agh.ki.mwo.persistence.DatabaseConnector;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.crypto.Data;
 
 @Controller
 public class StudentController {
@@ -65,5 +66,36 @@ public class StudentController {
         model.addAttribute("message", "Nowy uczeń został dodany");
 
         return "studentsList";
+    }
+
+    @RequestMapping(value = "/UpdateStudent", method = RequestMethod.POST)
+    public String editStudent(@RequestParam(value = "studentId") String studentId,
+                              @RequestParam(value = "newStudentName", required = false) String name,
+                              @RequestParam(value = "newStudentSurname", required = false) String surname,
+                              @RequestParam(value = "newStudentPesel", required = false) String pesel,
+                              @RequestParam(value = "newStudentSchoolClass", required = false) String schoolClassId,
+                              Model model, HttpSession session) {
+        if (session.getAttribute("userLogin") == null)
+            return "redirect:/Login";
+
+        DatabaseConnector.getInstance().editStudent(Long.parseLong(studentId), name, surname,
+                pesel, schoolClassId);
+
+        model.addAttribute("students", DatabaseConnector.getInstance().getStudents());
+        model.addAttribute("message", "Dane ucznia zostały zmienione");
+
+        return "studentsList";
+    }
+
+    @RequestMapping(value = "/EditStudent", method = RequestMethod.POST)
+    public String displayEditStudentForm(Model model, HttpSession session,
+                                         @RequestParam(value = "studentId") String studentId) {
+        if (session.getAttribute("userLogin") == null)
+            return "redirect:/Login";
+
+        model.addAttribute("schoolClasses", DatabaseConnector.getInstance().getSchoolClasses());
+        model.addAttribute("studentId", studentId);
+
+        return "studentEdit";
     }
 }
