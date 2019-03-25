@@ -23,6 +23,10 @@
 		            	<input type="hidden" name="schoolClassId" th:value="${schoolClass.id}" />
 		                <button type="submit">X</button>
 		            </form>
+					<form action="EditSchoolClass" method="POST" style="display: inline">
+						<input type="hidden" name="schoolClassId" th:value="${id=schoolClass.id}" />
+						<button type="submit">Edytuj</button>
+					</form>
 		        </td>
 			</tr>
 		

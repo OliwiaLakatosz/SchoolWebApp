@@ -133,17 +133,36 @@ public class DatabaseConnector {
         transaction.commit();
     }
 
-    public School getSchoolById(Long schoolId) {
-		Transaction transaction = session.beginTransaction();
-		return (School) session.get(School.class, schoolId);
-	}
-
     public void editSchool(Long schoolId, String newName, String newAddress) {
 		Transaction transaction = session.beginTransaction();
 		School school = (School) session.get(School.class, schoolId);
 
 		school.setName(newName);
 		school.setAddress(newAddress);
+		transaction.commit();
+	}
+
+	public void editSchoolClass(Long schoolClassId, int newStartYear, int newCurrentYear,
+                                String newProfile, String schoolId) {
+        String hql = "FROM School S WHERE S.id=" + schoolId;
+        Query query = session.createQuery(hql);
+        List<School> schools = query.list();
+
+		Transaction transaction = session.beginTransaction();
+
+		SchoolClass schoolClass = (SchoolClass) session.get(SchoolClass.class, schoolClassId);
+
+		schoolClass.setStartYear(newStartYear);
+		schoolClass.setCurrentYear(newCurrentYear);
+		schoolClass.setProfile(newProfile);
+
+		if (schools.size() == 0) {
+			session.save(schoolClass);
+		} else {
+			School school = schools.get(0);
+			school.addClass(schoolClass);
+			session.save(school);
+		}
 		transaction.commit();
 	}
 }
