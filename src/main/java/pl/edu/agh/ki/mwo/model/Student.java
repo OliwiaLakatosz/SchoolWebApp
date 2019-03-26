@@ -62,4 +62,8 @@ public class Student implements java.io.Serializable {
 	public SchoolClass getSchoolClass() {
 		return schoolClass;
 	}
+
+	public School getSchoolForStudent() {
+	    return getSchoolClass().getSchool();
+    }
 }
