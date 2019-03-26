@@ -58,5 +58,12 @@ public class Student implements java.io.Serializable {
 	public void setPesel(String pesel) {
 		this.pesel = pesel;
 	}
-	
+
+	public SchoolClass getSchoolClass() {
+		return schoolClass;
+	}
+
+	public School getSchoolForStudent() {
+	    return getSchoolClass().getSchool();
+    }
 }

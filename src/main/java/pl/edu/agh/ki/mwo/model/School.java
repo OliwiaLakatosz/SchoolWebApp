@@ -63,7 +63,7 @@ public class School implements java.io.Serializable {
 	}
 	
 	public String toString() {
-		return "School: " + getName() + " (" + getAddress() + ", " + getClasses().size() + " classes)";
+		return getName() + " (" + getAddress() + ", " + getClasses().size() + " classes)";
 }
 
 }
