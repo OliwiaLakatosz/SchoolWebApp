@@ -26,6 +26,10 @@ public class SchoolClass implements java.io.Serializable {
 	@JoinColumn(name="class_id")
 	private Set<Student> students;
 
+	@ManyToOne
+	@JoinColumn(name = "school_id")
+	private School school;
+
 	public SchoolClass() {
 		students = new HashSet<Student>();
 	}
@@ -73,7 +77,11 @@ public class SchoolClass implements java.io.Serializable {
 		this.profile = profile;
 	}
 
-	public String toString() {
-		return "Class: " + profile + " (Started: " + getStartYear() + ", Current year: " + getCurrentYear() + ")";
+    public School getSchool() {
+        return school;
+    }
+
+    public String toString() {
+		return profile + " (Started: " + getStartYear() + ", Current year: " + getCurrentYear() + ")";
 	}
 }

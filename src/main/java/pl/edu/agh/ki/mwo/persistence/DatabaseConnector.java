@@ -191,17 +191,14 @@ public class DatabaseConnector {
     }
 
     public Student getStudentById(String studentId) {
-        Student student = (Student) session.get(Student.class, Long.parseLong(studentId));
-        return student;
+		return (Student) session.get(Student.class, Long.parseLong(studentId));
     }
 
     public School getSchoolById(String schoolId) {
-	    School school = (School) session.get(School.class, Long.parseLong(schoolId));
-	    return school;
+		return (School) session.get(School.class, Long.parseLong(schoolId));
     }
 
     public SchoolClass getSchoolClassById(String schoolClassId) {
-	    SchoolClass schoolClass = (SchoolClass) session.get(SchoolClass.class, Long.parseLong(schoolClassId));
-	    return schoolClass;
+		return (SchoolClass) session.get(SchoolClass.class, Long.parseLong(schoolClassId));
     }
 }
