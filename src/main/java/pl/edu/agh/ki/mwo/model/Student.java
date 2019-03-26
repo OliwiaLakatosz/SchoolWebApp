@@ -63,7 +63,12 @@ public class Student implements java.io.Serializable {
 		return schoolClass;
 	}
 
+	public void setSchoolClass(SchoolClass schoolClass) {
+		this.schoolClass = schoolClass;
+	}
+
 	public School getSchoolForStudent() {
-	    return getSchoolClass().getSchool();
-    }
+		return getSchoolClass().getSchool();
+	}
+
 }

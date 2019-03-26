@@ -77,6 +77,7 @@ public class DatabaseConnector {
 		} else {
 			School school = results.get(0);
 			school.addClass(schoolClass);
+			schoolClass.setSchool(school);
 			session.save(school);
 		}
 		transaction.commit();
@@ -88,6 +89,7 @@ public class DatabaseConnector {
 		List<SchoolClass> results = query.list();
 		Transaction transaction = session.beginTransaction();
 		for (SchoolClass s : results) {
+			s.getSchool().removeSchoolClass(s);
 			session.delete(s);
 		}
 		transaction.commit();
@@ -112,6 +114,7 @@ public class DatabaseConnector {
 
 	    Transaction transaction = session.beginTransaction();
         for (Student s : results) {
+			s.getSchoolClass().removeStudent(s);
             session.delete(s);
         }
         transaction.commit();
@@ -128,6 +131,7 @@ public class DatabaseConnector {
         } else {
 	        SchoolClass schoolClass = results.get(0);
 	        schoolClass.addStudent(student);
+	        student.setSchoolClass(schoolClass);
 	        session.save(student);
         }
         transaction.commit();

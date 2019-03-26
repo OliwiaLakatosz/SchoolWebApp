@@ -66,4 +66,7 @@ public class School implements java.io.Serializable {
 		return getName() + " (" + getAddress() + ", " + getClasses().size() + " classes)";
 }
 
+	public void removeSchoolClass(SchoolClass schoolClass) {
+		getClasses().remove(schoolClass);
+	}
 }
